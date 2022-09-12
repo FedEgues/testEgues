@@ -1,21 +1,15 @@
 package com.sitrack.testEgues.servicios;
 
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -63,7 +57,7 @@ public class ServicioOpciones {
     public String fraseNPalabras() {
 
         Scanner leer = new Scanner(System.in).useDelimiter("\n");
-        System.out.println("Ingrese la frase a continuación: ");
+        System.out.println("Ingrese la frase que desea buscar a continuación: ");
         String frase = leer.next();
 
         if (frase.isEmpty()) {
@@ -90,7 +84,7 @@ public class ServicioOpciones {
             }
 
             code = codeBuffered.toString(); // Este es el código de la página :)
-            //tratamos de convertirlo a utf-8
+            //convertirlo a utf-8
             String pagUTF8 = new String(code.getBytes("ISO-8859-1"), "UTF-8");
             //cerramos los streams
             in.close();
@@ -105,12 +99,7 @@ public class ServicioOpciones {
     public List<String> palabras(String frase) {
 
         String[] palabra = frase.split(" ");
-        List<String> palabras = Arrays.asList(palabra);
-
-        for (String palabra1 : palabras) {
-            System.out.println(palabra1);
-        }
-
+        List<String> palabras = Arrays.asList(palabra);     
         return palabras;
     }
 
@@ -146,7 +135,7 @@ public class ServicioOpciones {
         String lowerFrase = frase.toLowerCase();
 
         String[] palabrasFrase = lowerFrase.split(" ");
-        String[] textoPalabras = lowerPagina.split("[^a-z]");
+        String[] textoPalabras = lowerPagina.split("\\s|[^a-z]");
 
         for (String busqueda : palabrasFrase) {
             String regex = "^".concat(busqueda).concat("$");
@@ -159,7 +148,7 @@ public class ServicioOpciones {
 
                 }
             }
-            System.out.println(busqueda + " se repite " + con);
+            System.out.println("\""+busqueda + "\" se repite " + con);
         }
     }
 
