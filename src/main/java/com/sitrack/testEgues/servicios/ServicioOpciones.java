@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -133,19 +134,29 @@ public class ServicioOpciones {
     public void buscarPalabras(String frase, String pagina) {
         String lowerPagina = pagina.toLowerCase();
         String lowerFrase = frase.toLowerCase();
-
+        
         String[] palabrasFrase = lowerFrase.split(" ");
-        String[] textoPalabras = lowerPagina.split("\\s|[^a-z]");
-
+        String texto  = Normalizer.normalize(lowerPagina , Normalizer.Form.NFD);
+        texto  = texto.replaceAll("[^\\p{ASCII}]", "");
+        String[] textoPalabras = texto.split("\\s|[^a-z]");
+       
         for (String busqueda : palabrasFrase) {
-            String regex = "^".concat(busqueda).concat("$");
+            
             int con = 0;
+            
+           
+            
+            busqueda  = Normalizer.normalize(busqueda , Normalizer.Form.NFD);
+            busqueda  = busqueda.replaceAll("[^\\p{ASCII}]", "");
+            String regex = "^".concat(busqueda).concat("$");
+             
 
             for (String palabrasDeTexto : textoPalabras) {
-
+                
+              
+               
                 if (palabrasDeTexto.matches(regex)) {
                     con++;
-
                 }
             }
             System.out.println("\""+busqueda + "\" se repite " + con);
