@@ -164,10 +164,12 @@ public class ServicioOpciones {
         StringBuilder str = new StringBuilder();
         int cont = 0;
         for (int i = 0; i < pagina.length(); i++) {
+            
             if (pagina.substring(i, i + 1).equals("<")) {
                 cont = 1;
             } else if (pagina.substring(i, i + 1).equals(">")) {
                 cont = 0;
+                i++;
             }
           
             if (cont == 0) {
