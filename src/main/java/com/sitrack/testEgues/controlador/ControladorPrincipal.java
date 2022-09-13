@@ -27,6 +27,7 @@ public class ControladorPrincipal {
         }
         return "redirect:/bucle";
     }
+    
     @GetMapping("/bucle")
     public String bucle() {
         

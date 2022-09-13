@@ -100,7 +100,7 @@ public class ServicioOpciones {
     public List<String> palabras(String frase) {
 
         String[] palabra = frase.split(" ");
-        List<String> palabras = Arrays.asList(palabra);     
+        List<String> palabras = Arrays.asList(palabra);
         return palabras;
     }
 
@@ -134,32 +134,27 @@ public class ServicioOpciones {
     public void buscarPalabras(String frase, String pagina) {
         String lowerPagina = pagina.toLowerCase();
         String lowerFrase = frase.toLowerCase();
-        
+
         String[] palabrasFrase = lowerFrase.split(" ");
-        String texto  = Normalizer.normalize(lowerPagina , Normalizer.Form.NFD);
-        texto  = texto.replaceAll("[^\\p{ASCII}]", "");
-        String[] textoPalabras = texto.split("\\s|[^a-z]");
-       
+        String texto = Normalizer.normalize(lowerPagina, Normalizer.Form.NFD);
+        texto = texto.replaceAll("[^\\p{ASCII}]", "");
+        String[] textoPalabras = texto.split("\\s|[^a-zA-z]");
+
         for (String busqueda : palabrasFrase) {
-            
+
             int con = 0;
-            
-           
-            
-            busqueda  = Normalizer.normalize(busqueda , Normalizer.Form.NFD);
-            busqueda  = busqueda.replaceAll("[^\\p{ASCII}]", "");
+
+            busqueda = Normalizer.normalize(busqueda, Normalizer.Form.NFD);
+            busqueda = busqueda.replaceAll("[^\\p{ASCII}]", "");
             String regex = "^".concat(busqueda).concat("$");
-             
 
             for (String palabrasDeTexto : textoPalabras) {
-                
-              
-               
+
                 if (palabrasDeTexto.matches(regex)) {
                     con++;
                 }
             }
-            System.out.println("\""+busqueda + "\" se repite " + con);
+            System.out.println("\"" + busqueda + "\" se repite " + con);
         }
     }
 
