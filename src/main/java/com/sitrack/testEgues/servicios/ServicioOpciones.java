@@ -28,8 +28,9 @@ public class ServicioOpciones {
         URL url = validacionDeURL();
         String frase = fraseNPalabras();
         String pagina = request(url);
-        buscarFrase(frase, pagina);
-        buscarPalabras(frase, pagina);
+         String textoPuro = filtrarEtiqueta(pagina);
+        buscarFrase(frase, textoPuro);
+        buscarPalabras(frase, textoPuro);
 
     }
 
@@ -156,6 +157,26 @@ public class ServicioOpciones {
             }
             System.out.println("\"" + busqueda + "\" se repite " + con);
         }
+    }
+    
+     public String filtrarEtiqueta(String pagina) {
+        StringBuilder str = new StringBuilder();
+        int cont = 0;
+        for (int i = 0; i < pagina.length(); i++) {
+            if (pagina.substring(i, i + 1).equals("<")) {
+                cont = 1;
+            } else if (pagina.substring(i, i + 1).equals(">")) {
+                cont = 0;
+            }
+          
+            if (cont == 0) {
+                str.append(pagina.substring(i, i + 1));
+            }
+        }
+       
+        String textoPuro = str.toString();
+        
+        return textoPuro;
     }
 
 }
