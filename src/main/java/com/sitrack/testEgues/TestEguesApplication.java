@@ -2,9 +2,10 @@ package com.sitrack.testEgues;
 
 import com.sitrack.testEgues.servicios.ServicioOpciones;
 import java.util.Scanner;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
-
+@SpringBootApplication
 public class TestEguesApplication {
 
 	public static void main(String[] args) {
